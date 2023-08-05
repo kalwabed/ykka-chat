@@ -1,9 +1,9 @@
 <script setup lang="ts">
 const chatMsg = ref('')
-const { $state } = useChatStore()
+const { setChat } = useChat()
 
-const onSend = () => {
-  $state.chats.push({ name: 'me', msg: chatMsg.value })
+const onSend = async () => {
+  await setChat(chatMsg.value)
   chatMsg.value = ''
 }
 </script>

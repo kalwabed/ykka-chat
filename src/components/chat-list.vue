@@ -1,5 +1,18 @@
 <script setup lang="ts">
-const { chats } = useChatStore()
+import { onValue } from 'firebase/database'
+
+const { chat, chatRef } = useChat()
+const { chats, $state } = useChatStore()
+
+watchEffect(() => {
+  console.log(chat.value)
+})
+
+onValue(chatRef, (snapshot) => {
+  const data = snapshot.val()
+  console.log('🚀 ~ file: chat-list.vue:13 ~ onValue ~ data:', data)
+  $state.chats.push({ name: 'other', msg: data })
+})
 </script>
 
 <template>
