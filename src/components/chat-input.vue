@@ -1,9 +1,9 @@
 <script setup lang="ts">
 const chatMsg = ref('')
-const { setChat } = useChat()
+const { sendChat } = useChat()
 
 const onSend = async () => {
-  await setChat(chatMsg.value)
+  await sendChat(chatMsg.value)
   chatMsg.value = ''
 }
 </script>

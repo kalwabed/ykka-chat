@@ -1,24 +1,11 @@
 <script setup lang="ts">
-import { onValue } from 'firebase/database'
-
-const { chat, chatRef } = useChat()
-const { chats, $state } = useChatStore()
-
-watchEffect(() => {
-  console.log(chat.value)
-})
-
-onValue(chatRef, (snapshot) => {
-  const data = snapshot.val()
-  console.log('🚀 ~ file: chat-list.vue:13 ~ onValue ~ data:', data)
-  $state.chats.push({ name: 'other', msg: data })
-})
+const { chats } = useChat()
 </script>
 
 <template>
-  <ul>
-    <li data-test="chat-msg" v-for="chat in chats" :key="chat.msg">
-      {{ chat.name }}: {{ chat.msg }}
+  <ul v-if="chats?.length !== 0">
+    <li data-test="chat-msg" v-for="chat in chats" :key="chat.id">
+      {{ chat.member.username }}: {{ chat.msg }}
     </li>
   </ul>
 </template>

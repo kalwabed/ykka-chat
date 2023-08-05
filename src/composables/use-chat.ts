@@ -1,22 +1,39 @@
-import { ref as dbRef, set, onValue } from 'firebase/database'
+import { child, ref as dbRef, push, update } from 'firebase/database'
 import { useRTDB } from '@vueuse/firebase/useRTDB'
 
 import { db } from '@/utils/firebase'
 
-export const useChat = createGlobalState(() => {
-  const chatRef = dbRef(db, 'chats/' + '123')
-  const chatDb = useRTDB(chatRef)
-  const chat = ref()
+const defaultMember = {
+  id: 'mmmme',
+  username: 'me'
+}
 
-  const setChat = async (value: string) => {
-    await set(dbRef(db, 'chat' + '123'), value)
+export interface Chat {
+  msg: string
+  id: string
+  createdAt: string
+  member: {
+    id: string
+    username: string
+  }
+}
+
+export const useChat = createGlobalState(() => {
+  const { room } = useChatStore()
+  const chatRef = dbRef(db, 'rooms/' + room.id + '/chats')
+  const chats = useRTDB<Chat[]>(chatRef)
+
+  const sendChat = async (value: string) => {
+    const newChatKey = push(child(dbRef(db), 'rooms/' + room.id + '/chats')).key
+    const chatRef = dbRef(db, 'rooms/' + room.id + '/chats/' + newChatKey)
+
+    await update(chatRef, {
+      id: newChatKey,
+      member: defaultMember,
+      msg: value,
+      createdAt: new Date().toISOString()
+    })
   }
 
-  onValue(chatRef, (snapshot) => {
-    const data = snapshot.val()
-    console.log('🚀 ~ file: use-chat.ts:17 ~ onValue ~ data:', data)
-    chat.value = data
-  })
-
-  return { chat, setChat, chatRef }
+  return { chats, sendChat, chatRef }
 })

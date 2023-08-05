@@ -7,10 +7,7 @@ const app = initializeApp({
   databaseURL: import.meta.env.VITE_FIREBASE_DATABASE_URL,
   projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID
 })
-console.log(
-  '🚀 ~ file: firebase.ts:8 ~ import.meta.env.VITE_FIREBASE_DATABASE_URL:',
-  import.meta.env.VITE_FIREBASE_DATABASE_URL
-)
+
 const db = getDatabase(app)
 
 export { db, app }
