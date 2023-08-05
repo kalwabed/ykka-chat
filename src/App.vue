@@ -3,15 +3,7 @@ import { RouterView } from 'vue-router'
 </script>
 
 <template>
-  <VLayout>
-    <VMain class="mt-12 width mx-auto">
-      <RouterView />
-    </VMain>
-  </VLayout>
+  <main class="max-w-screen-lg mx-auto">
+    <RouterView />
+  </main>
 </template>
-
-<style scoped>
-.width {
-  max-width: 1024px;
-}
-</style>
