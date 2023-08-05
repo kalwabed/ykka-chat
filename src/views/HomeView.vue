@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import ChatList from '@/components/chat-list.vue'
-import { useChatStore } from '@/stores/chat'
 
 const chatMsg = ref('')
 const { $state } = useChatStore()
