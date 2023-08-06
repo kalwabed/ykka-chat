@@ -3,11 +3,6 @@ import { useRTDB } from '@vueuse/firebase/useRTDB'
 
 import { db } from '@/utils/firebase'
 
-const defaultMember = {
-  id: 'mmmme',
-  username: 'me'
-}
-
 export interface Chat {
   msg: string
   id: string
@@ -20,6 +15,7 @@ export interface Chat {
 
 export const useChat = createGlobalState(() => {
   const { room } = useChatStore()
+  const { username, id } = useUserStore()
   const chatRef = dbRef(db, 'rooms/' + room.id + '/chats')
   const chats = useRTDB<Chat[]>(chatRef)
 
@@ -29,7 +25,7 @@ export const useChat = createGlobalState(() => {
 
     await update(chatRef, {
       id: newChatKey,
-      member: defaultMember,
+      member: { username, id },
       msg: value,
       createdAt: new Date().toISOString()
     })

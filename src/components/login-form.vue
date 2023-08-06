@@ -1,16 +1,27 @@
 <script setup lang="ts">
+import { uid } from 'uid/secure'
+
 const { $patch } = useUserStore()
+const chatStore = useChatStore()
+
 const username = ref('')
 
 const submit = () => {
-  console.log(username.value)
-  $patch({ username: username.value, id: 'crypto.randomUUID()' })
+  $patch({ username: username.value, id: uid() })
+  chatStore.$patch({ room: { id: '123' } })
+  username.value = ''
 }
 </script>
 
 <template>
-  <form data-test="form" @submit.prevent="submit">
-    <input data-test="username" type="text" v-model="username" />
+  <form data-test="form" @submit.prevent="submit" class="my8">
+    <input
+      data-test="username"
+      class="b focus:ring p2 rd mr2"
+      placeholder="Username"
+      type="text"
+      v-model="username"
+    />
     <button class="btn" type="submit">Submit</button>
   </form>
 </template>
