@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const chatMsg = ref('')
-const { sendChat } = useChat()
+const { sendChat } = useChatStore()
 
 const onSend = async () => {
   await sendChat(chatMsg.value)
