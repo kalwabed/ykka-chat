@@ -14,7 +14,7 @@ watchEffect(async () => {
 </script>
 
 <template>
-  <div class="p4 h-2xl max-w-lg overflow-y-auto b b-b-transparent rd rd-b-0">
+  <div class="p4 overflow-y-auto b b-b-transparent rd rd-b-0 h-2xl">
     <ul v-if="chats?.length !== 0" class="flex flex-col justify-end gap.5">
       <small class="text-center c-gray6 mb4">Today</small>
       <li
@@ -22,7 +22,7 @@ watchEffect(async () => {
         v-for="chat in chats"
         :key="chat.id"
         class="relative flex flex-col w-fit min-w-16 max-w-90% bg-teal7 b-teal6 rd pr2 pt1 pb5"
-        :class="chat.member.id === id ? 'self-end' : ''"
+        :class="chat.member.id === id ? 'self-end' : 'c-red'"
       >
         <!-- <div class="flex items-center justify-between w-full">
           <b class="c-pink">{{ chat.member.username }}</b>

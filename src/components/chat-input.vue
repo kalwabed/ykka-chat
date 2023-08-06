@@ -11,7 +11,7 @@ const onSend = async () => {
 <template>
   <div class="relative max-w-lg">
     <input
-      class="focus:(ring b-transparent) hover:b-gray mr4 p2 w-full rd-b overflow-hidden b transition"
+      class="focus:(ring b-transparent) hover:b-gray px3 py2 w-full rd-b overflow-hidden b transition"
       data-test="chat-input"
       placeholder="Write something..."
       type="text"

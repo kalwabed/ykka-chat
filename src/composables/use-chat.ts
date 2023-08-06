@@ -15,7 +15,7 @@ export interface Chat {
 
 export const useChat = createGlobalState(() => {
   const { room } = useChatStore()
-  const { username, id } = useUserStore()
+  const { id, username } = useUserStore()
   const chatRef = dbRef(db, 'rooms/' + room.id + '/chats')
   const chats = useRTDB<Chat[]>(chatRef)
 
@@ -25,7 +25,7 @@ export const useChat = createGlobalState(() => {
 
     await update(chatRef, {
       id: newChatKey,
-      member: { username, id },
+      member: { id, username },
       msg: value,
       createdAt: new Date().toISOString()
     })
