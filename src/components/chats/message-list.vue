@@ -14,7 +14,7 @@ watchEffect(async () => {
 </script>
 
 <template>
-  <div class="p4 overflow-y-auto b b-b-transparent rd rd-b-0 h-2xl">
+  <div class="p4 overflow-y-auto rd rd-b-0 h-90%">
     <ul v-if="chats?.length !== 0" class="flex flex-col justify-end gap.5">
       <small class="text-center c-gray6 mb4">Today</small>
       <li
@@ -24,10 +24,6 @@ watchEffect(async () => {
         class="relative flex flex-col w-fit min-w-16 max-w-90% bg-teal7 b-teal6 rd pr2 pt1 pb5"
         :class="chat.member.id === id ? 'self-end' : 'c-red'"
       >
-        <!-- <div class="flex items-center justify-between w-full">
-          <b class="c-pink">{{ chat.member.username }}</b>
-          <small class="c-amber text-xs">Dev</small>
-        </div> -->
         <div class="c-teal50 px2 text-balance">{{ chat.msg }}</div>
         <span class="c-teal2 text-xs absolute bottom-1 right-2">{{
           new Intl.DateTimeFormat('id', { timeStyle: 'short' }).format(new Date(chat.createdAt))

@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import ChatInput from '@/components/chat-input.vue'
-import ChatList from '@/components/chat-list.vue'
+import ChatInput from '@/components/chats/chat-input.vue'
+import MessageList from '@/components/chats/message-list.vue'
 import LoginForm from '@/components/login-form.vue'
+import ChatList from '@/components/chats/chat-list.vue'
 
 const chatStore = useChatStore()
 const userStore = useUserStore()
@@ -14,14 +15,15 @@ const logout = () => {
 
 <template>
   <div class="w-full">
-    <template v-if="userStore.$state.id">
-      <div class="my-8 flex flex-col w-lg mx-auto h-full">
-        <button class="btn mb4 w-fit rd b-b-2" @click.once="logout">Logout</button>
-        <b>Room id: {{ chatStore.room.id }}</b>
-        <ChatList />
+    <button class="btn mb4 w-fit rd b-b-2" @click.once="logout">Logout</button>
+    <b>Room id: {{ chatStore.room.id }}</b>
+    <div class="flex my-8 h-3xl" v-if="userStore.$state.id">
+      <ChatList />
+      <div class="relative flex flex-col w-full mx-auto h-full bg-white b">
+        <MessageList />
         <ChatInput />
       </div>
-    </template>
+    </div>
     <LoginForm v-else />
   </div>
 </template>
