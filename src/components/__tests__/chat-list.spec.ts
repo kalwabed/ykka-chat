@@ -2,8 +2,8 @@ import { createPinia, setActivePinia } from 'pinia'
 import { it, describe, expect, beforeEach } from 'vitest'
 import { flushPromises, mount } from '@vue/test-utils'
 
-import ChatInput from '@/components/chat-input.vue'
-import ChatList from '../chat-list.vue'
+import ChatInput from '@/components/chats/chat-input.vue'
+import ChatList from '../chats/chat-list.vue'
 
 describe('Input chat', () => {
   beforeEach(() => {
@@ -22,7 +22,7 @@ describe('Input chat', () => {
 
   it('should add new message', async () => {
     const wrapper = mount(ChatList)
-    const { sendChat } = useChat()
+    const { sendChat } = useChatStore()
 
     await sendChat('Test')
     await nextTick()

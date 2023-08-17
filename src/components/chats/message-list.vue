@@ -1,8 +1,14 @@
 <script setup lang="ts">
+import type { Chat } from '@/utils/types'
+import { useRTDB } from '@vueuse/firebase/useRTDB'
+
 const bottomRef = ref<HTMLElement>()
 
-const { id } = useUserStore()
-const { chats } = useChat()
+const { currentUser } = useUserStore()
+const { chatRef } = useChatStore()
+// currently we don't have a way to get the current user's chats
+// so we're using the same chatRef for all users, which is not ideal.
+const chats = useRTDB<Chat[]>(chatRef, { autoDispose: false })
 
 // Scroll to bottom when chats change
 watchEffect(async () => {
@@ -22,9 +28,9 @@ watchEffect(async () => {
         v-for="chat in chats"
         :key="chat.id"
         class="relative flex flex-col w-fit min-w-16 max-w-90% bg-teal7 b-teal6 rd pr2 pt1 pb5"
-        :class="chat.member.id === id ? 'self-end' : 'c-red'"
+        :class="chat.sender.id === currentUser.id ? 'self-end' : 'c-red'"
       >
-        <div class="c-teal50 px2 text-balance">{{ chat.msg }}</div>
+        <div class="c-teal50 px2 text-balance">{{ chat.message }}</div>
         <span class="c-teal2 text-xs absolute bottom-1 right-2">{{
           new Intl.DateTimeFormat('id', { timeStyle: 'short' }).format(new Date(chat.createdAt))
         }}</span>

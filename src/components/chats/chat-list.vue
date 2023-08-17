@@ -1,17 +1,14 @@
 <script setup lang="ts">
+import type { User } from '@/utils/types'
 import ChatItem from './chat-item.vue'
 
-const users = ref<
-  { id: string; name: string; username: string; company: { catchPhrase: string } }[]
->([])
+const users = ref<User[]>([])
+const { getUsers } = useUserStore()
 
-const fetchUsers = async () => {
-  const res = await fetch('https://jsonplaceholder.typicode.com/users')
-  const data = await res.json()
-  users.value = data
-}
-
-onMounted(fetchUsers)
+onMounted(async () => {
+  const usersData = await getUsers()
+  users.value = usersData
+})
 </script>
 
 <template>

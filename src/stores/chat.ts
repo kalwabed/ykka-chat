@@ -2,15 +2,15 @@ import { child, ref as dbRef, push, update } from 'firebase/database'
 import { defineStore } from 'pinia'
 
 import { db } from '@/utils/firebase'
+import type { User } from '@/utils/types'
 
 export const useChatStore = defineStore('chat', {
   state: () => ({
-    room: { id: '123', name: '', members: [] }
+    room: { id: '', receiver: null as User | null, sender: null as User | null }
   }),
   getters: {
-    chatPath: () => {
-      const { room } = useChatStore()
-      const path: string = 'rooms/' + room.id + '/chats'
+    chatPath() {
+      const path: string = 'rooms/' + this.room.id + '/chats'
 
       return path
     },
@@ -21,16 +21,16 @@ export const useChatStore = defineStore('chat', {
     }
   },
   actions: {
-    async sendChat(value: string) {
-      const { id, username } = useUserStore()
+    async sendChat(message: string) {
+      const { currentUser } = useUserStore()
 
       const newChatKey = push(child(dbRef(db), this.chatPath)).key
       const newChatRef = dbRef(db, this.chatPath + '/' + newChatKey)
 
       await update(newChatRef, {
+        message,
         id: newChatKey,
-        member: { id, username },
-        msg: value,
+        sender: { id: currentUser?.id, username: currentUser?.username },
         createdAt: new Date().toISOString()
       })
     }

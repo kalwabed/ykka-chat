@@ -1,13 +1,14 @@
 import { defineStore } from 'pinia'
-import { addDoc, collection, updateDoc, doc, getDocs, query, where } from 'firebase/firestore'
+import { addDoc, collection, doc, getDocs, query, where, getDoc } from 'firebase/firestore'
+
 import { firestore } from '@/utils/firebase'
+import type { User } from '@/utils/types'
 
 const usersRef = collection(firestore, 'users')
 
 export const useUserStore = defineStore('user', {
   state: () => ({
-    id: useLocalStorage('user/id', null) as Ref<string | null>,
-    username: useLocalStorage('user/username', null) as Ref<string | null>
+    currentUser: {} as User
   }),
   actions: {
     async login(username: string) {
@@ -24,11 +25,16 @@ export const useUserStore = defineStore('user', {
           fullname: username,
           createdAt: new Date().toISOString()
         })
-        this.id = createdUser.id
+        const user = await getDoc(doc(firestore, 'users', createdUser.id))
+        this.currentUser = { id: user.id, ...user.data() } as User
       } else {
-        this.id = userSnapshot.docs[0].id
+        const user = userSnapshot.docs[0]
+        this.currentUser = { id: user.id, ...user.data() } as User
       }
-      this.username = username
+    },
+    async getUsers(): Promise<User[]> {
+      const users = await getDocs(usersRef)
+      return users.docs.map((user) => ({ id: user.id, ...user.data() })) as User[]
     }
   }
 })
