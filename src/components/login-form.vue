@@ -1,13 +1,11 @@
 <script setup lang="ts">
-import { uid } from 'uid/secure'
-
-const { $patch } = useUserStore()
+const { login } = useUserStore()
 const chatStore = useChatStore()
 
 const username = ref('')
 
-const submit = () => {
-  $patch({ username: username.value, id: uid() })
+const submit = async () => {
+  await login(username.value)
   chatStore.$patch({ room: { id: '123' } })
   username.value = ''
 }

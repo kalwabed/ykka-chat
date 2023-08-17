@@ -15,7 +15,7 @@ const logout = () => {
 
 <template>
   <div class="w-full">
-    <button class="btn mb4 w-fit rd b-b-2" @click.once="logout">Logout</button>
+    <button class="btn mb4 w-fit rd b-b-2" @click="logout">Logout</button>
     <b>Room id: {{ chatStore.room.id }}</b>
     <div class="flex my-8 h-3xl" v-if="userStore.$state.id">
       <ChatList />
@@ -30,7 +30,7 @@ const logout = () => {
               class=""
             />
             <div class="flex flex-col">
-              <b>John Doe</b>
+              <b>{{ chatStore.room.name }}</b>
               <small class="c-gray6">Online</small>
             </div>
           </div>

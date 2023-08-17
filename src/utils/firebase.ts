@@ -1,5 +1,6 @@
 import { initializeApp } from 'firebase/app'
 import { getDatabase } from 'firebase/database'
+import { getFirestore } from 'firebase/firestore'
 
 const app = initializeApp({
   apiKey: import.meta.env.FIREBASE_API_KEY,
@@ -9,5 +10,6 @@ const app = initializeApp({
 })
 
 const db = getDatabase(app)
+const firestore = getFirestore(app)
 
-export { db, app }
+export { db, app, firestore }

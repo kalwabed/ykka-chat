@@ -1,9 +1,20 @@
 <script setup lang="ts">
-defineProps<{ user: { name: string; username: string; company: { catchPhrase: string } } }>()
+const props = defineProps<{
+  user: { name: string; username: string; company: { catchPhrase: string } }
+}>()
+
+const roomStore = useChatStore()
+
+const openRoom = () => {
+  roomStore.$patch({ room: { name: props.user?.name } })
+}
 </script>
 
 <template>
-  <div class="p-4 h-full w-full b-b hover:bg-gray1 transition">
+  <button
+    @click="openRoom"
+    class="p-4 h-full w-full b-b hover:bg-gray50 transition focus:bg-gray1 text-left"
+  >
     <div class="flex gap2 justify-between items-center w-full h-12">
       <div class="w-15%">
         <img
@@ -27,5 +38,5 @@ defineProps<{ user: { name: string; username: string; company: { catchPhrase: st
         <span class="i-ph:checks w6 h6 rd-full c-green"></span>
       </div>
     </div>
-  </div>
+  </button>
 </template>
