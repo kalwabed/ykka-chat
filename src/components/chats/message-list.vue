@@ -14,7 +14,7 @@ watchEffect(async () => {
 </script>
 
 <template>
-  <div class="p4 overflow-y-auto rd rd-b-0 h-90%">
+  <div class="p4 overflow-y-auto rd rd-b-0 h-83%">
     <ul v-if="chats?.length !== 0" class="flex flex-col justify-end gap.5">
       <small class="text-center c-gray6 mb4">Today</small>
       <li
