@@ -1,14 +1,23 @@
 <script setup lang="ts">
+import { ref as dbRef, onValue } from 'firebase/database'
+
 import type { Chat } from '@/utils/types'
-import { useRTDB } from '@vueuse/firebase/useRTDB'
+import { db } from '@/utils/firebase'
 
 const bottomRef = ref<HTMLElement>()
 
 const { currentUser } = useUserStore()
-const { chatRef } = useChatStore()
-// currently we don't have a way to get the current user's chats
-// so we're using the same chatRef for all users, which is not ideal.
-const chats = useRTDB<Chat[]>(chatRef, { autoDispose: false })
+const { room } = useChatStore()
+
+const chats = ref<Chat[]>([])
+
+watch(room, () => {
+  if (room.id) {
+    onValue(dbRef(db, `rooms/${room.id}/chats`), (snapshot) => {
+      chats.value = snapshot.val()
+    })
+  }
+})
 
 // Scroll to bottom when chats change
 watchEffect(async () => {
