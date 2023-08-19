@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref as dbRef, onValue } from 'firebase/database'
+import { ref as dbRef, onValue, type Unsubscribe } from 'firebase/database'
 
 import type { Chat } from '@/utils/types'
 import { db } from '@/utils/firebase'
@@ -10,12 +10,18 @@ const { currentUser } = useUserStore()
 const { room } = useChatStore()
 
 const chats = ref<Chat[]>([])
+const currentOnListener = ref<Unsubscribe>()
 
 watch(room, () => {
+  if (currentOnListener.value) {
+    currentOnListener.value()
+  }
+
   if (room.id) {
-    onValue(dbRef(db, `rooms/${room.id}/chats`), (snapshot) => {
+    const listener = onValue(dbRef(db, `rooms/${room.id}/chats`), (snapshot) => {
       chats.value = snapshot.val()
     })
+    currentOnListener.value = listener
   }
 })
 
