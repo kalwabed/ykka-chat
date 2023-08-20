@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import { uid } from 'uid/secure'
-
 import type { User } from '@/utils/types'
 
 const props = defineProps<{
-  user: User
+  user: Partial<User>
+  roomId: string
 }>()
 
 const roomStore = useChatStore()
@@ -14,7 +13,7 @@ const openRoom = () => {
   roomStore.$patch({
     room: {
       receiver: props.user,
-      id: uid(),
+      id: props.roomId,
       sender: currentUser
     }
   })

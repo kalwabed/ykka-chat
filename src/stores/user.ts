@@ -23,7 +23,8 @@ export const useUserStore = defineStore('user', {
         const createdUser = await addDoc(collection(firestore, 'users'), {
           username,
           fullname: username,
-          createdAt: new Date().toISOString()
+          createdAt: new Date().toISOString(),
+          rooms: []
         })
         const user = await getDoc(doc(firestore, 'users', createdUser.id))
         this.currentUser = { id: user.id, ...user.data() } as User
