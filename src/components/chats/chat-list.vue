@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useFirestore } from '@vueuse/firebase/useFirestore'
-import { doc } from 'firebase/firestore'
+import { collection, doc, getDoc, getDocs, or, query, where } from 'firebase/firestore'
 
 import type { User } from '@/utils/types'
 import ChatItem from './chat-item.vue'
@@ -8,15 +8,55 @@ import { firestore } from '@/utils/firebase'
 
 const search = ref('')
 const searchInput = ref<HTMLInputElement>()
+const searchedUsers = ref<User[]>([])
 
-const [isSearching, toggleSearching] = useToggle()
+const [isSearching, toggleSearching] = useToggle(false)
+const [isLoading, toggleLoading] = useToggle(false)
 const { currentUser } = useUserStore()
 const user = useFirestore(doc(firestore, 'users', currentUser.id)) as Ref<User>
+const users = useFirestore(collection(firestore, 'users')) as Ref<User[]>
+
+watchDebounced(
+  search,
+  async () => {
+    if (search.value) {
+      const usersRef = collection(firestore, 'users')
+      const q = query(
+        usersRef,
+        or(where('fullname', '==', search.value), where('username', '==', search.value))
+      )
+      const querySnapshot = await getDocs(q)
+      const users: User[] = []
+      querySnapshot.forEach((doc) => {
+        users.push(doc.data() as User)
+      })
+      searchedUsers.value = users
+      toggleLoading(false)
+    }
+  },
+  { debounce: 1000 }
+)
+
+watchDebounced(
+  search,
+  () => {
+    if (search.value) {
+      toggleLoading()
+    }
+  },
+  { debounce: 300 }
+)
 
 async function onOpenSearch() {
   toggleSearching()
   await nextTick()
   searchInput.value?.focus()
+}
+
+function clearSearch() {
+  search.value = ''
+  searchedUsers.value = []
+  toggleLoading(false)
 }
 </script>
 
@@ -38,7 +78,7 @@ async function onOpenSearch() {
             placeholder="Search"
             class="b-b-2 wfull outline-none focus:b-teal py1.6 transition"
           />
-          <button class="absolute right-0 top-0 bottom-0 px2 transition" @click="search = ''">
+          <button class="absolute right-0 top-0 bottom-0 px2 transition" @click="clearSearch">
             <i class="i-ph:x block w4 h4 c-gray"></i>
           </button>
         </div>
@@ -54,7 +94,25 @@ async function onOpenSearch() {
       </div>
     </div>
     <div class="mx-auto c-gray mt6" v-if="isSearching">
-      <p>Empty</p>
+      <p v-if="isLoading">Loading...</p>
+      <div v-if="searchedUsers.length > 0">
+        <p>Search Result</p>
+        <ChatItem
+          v-for="user in searchedUsers"
+          :key="user.id"
+          :user="user"
+          :room-id="`${user.id}-${currentUser.id}`"
+        />
+      </div>
+      <p v-if="searchedUsers.length === 0 && search && !isLoading">Empty</p>
+      <template v-if="users.length > 0 && !search">
+        <ChatItem
+          v-for="user in users"
+          :key="user.id"
+          :user="user"
+          :room-id="`${user.id}-${currentUser.id}`"
+        />
+      </template>
     </div>
     <template v-else>
       <ChatItem
