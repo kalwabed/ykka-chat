@@ -61,8 +61,8 @@ function clearSearch() {
 </script>
 
 <template>
-  <div class="h-full overflow-auto flex flex-col w-3/4 b-y b-l">
-    <div class="px4 py2.5 wfull b-b">
+  <div class="w-3/4">
+    <div class="px4 py2.5 w[27.3875rem] b-b fixed bg-white z20 b-l b-y">
       <div v-if="isSearching" class="flex gap2 items-center">
         <button
           class="hover:(c-teal9 bg-teal1) transition rd-full p1"
@@ -87,40 +87,42 @@ function clearSearch() {
         <div class="flex flex-col">
           <b>YKKA Chat</b>
         </div>
-
         <button @click="onOpenSearch" class="p2 rd-full hover:bg-gray1 transition">
           <i class="i-ph:magnifying-glass w4 h4 block"></i>
         </button>
       </div>
     </div>
-    <div class="mx-auto c-gray mt6" v-if="isSearching">
-      <p v-if="isLoading">Loading...</p>
-      <div v-if="searchedUsers.length > 0">
-        <p>Search Result</p>
-        <ChatItem
-          v-for="user in searchedUsers"
-          :key="user.id"
-          :user="user"
-          :room-id="`${user.id}-${currentUser.id}`"
-        />
+
+    <div class="h-full pt15 overflow-auto flex flex-col b-b b-l">
+      <div class="mx-auto c-gray" v-if="isSearching">
+        <p v-if="isLoading">Loading...</p>
+        <div v-if="searchedUsers.length > 0">
+          <p>Search Result</p>
+          <ChatItem
+            v-for="user in searchedUsers"
+            :key="user.id"
+            :user="user"
+            :room-id="`${user.id}-${currentUser.id}`"
+          />
+        </div>
+        <p v-if="searchedUsers.length === 0 && search && !isLoading">Empty</p>
+        <template v-if="users.length > 0 && !search">
+          <ChatItem
+            v-for="user in users"
+            :key="user.id"
+            :user="user"
+            :room-id="`${user.id}-${currentUser.id}`"
+          />
+        </template>
       </div>
-      <p v-if="searchedUsers.length === 0 && search && !isLoading">Empty</p>
-      <template v-if="users.length > 0 && !search">
+      <template v-else>
         <ChatItem
-          v-for="user in users"
-          :key="user.id"
-          :user="user"
-          :room-id="`${user.id}-${currentUser.id}`"
+          :user="data.receiver"
+          :room-id="data.id"
+          v-for="data in user?.rooms"
+          :key="data.id"
         />
       </template>
     </div>
-    <template v-else>
-      <ChatItem
-        :user="data.receiver"
-        :room-id="data.id"
-        v-for="data in user?.rooms"
-        :key="data.id"
-      />
-    </template>
   </div>
 </template>
