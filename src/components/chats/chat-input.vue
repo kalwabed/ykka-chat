@@ -1,8 +1,38 @@
 <script setup lang="ts">
+import { useFirestore } from '@vueuse/firebase/useFirestore'
+import { arrayUnion, doc, setDoc, updateDoc } from 'firebase/firestore'
+import { firestore } from '@/utils/firebase'
+import type { User } from '@/utils/types'
+
 const chatMsg = ref('')
-const { sendChat } = useChatStore()
+const { sendChat, room } = useChatStore()
+const { currentUser } = useUserStore()
+const userDoc = doc(firestore, 'users', currentUser.id)
+const user = useFirestore(userDoc) as Ref<User>
+
+const needToCreatingANewRoom = computed(() => {
+  const existingRoom = user.value.rooms.find((r) => r.id === room.id)
+  return !existingRoom
+})
 
 const onSend = async () => {
+  if (needToCreatingANewRoom.value) {
+    const receiverDoc = doc(firestore, 'users', room.receiver!.id)
+    await Promise.race([
+      updateDoc(userDoc, {
+        rooms: arrayUnion({
+          id: room.id,
+          receiver: room.receiver
+        })
+      }),
+      updateDoc(receiverDoc, {
+        rooms: arrayUnion({
+          id: room.id,
+          receiver: currentUser
+        })
+      })
+    ])
+  }
   await sendChat(chatMsg.value)
   chatMsg.value = ''
 }

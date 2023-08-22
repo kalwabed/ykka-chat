@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useFirestore } from '@vueuse/firebase/useFirestore'
-import { collection, doc, getDoc, getDocs, or, query, where } from 'firebase/firestore'
+import { collection, doc, getDocs, or, query, where } from 'firebase/firestore'
 
 import type { User } from '@/utils/types'
 import ChatItem from './chat-item.vue'
@@ -28,7 +28,7 @@ watchDebounced(
       const querySnapshot = await getDocs(q)
       const users: User[] = []
       querySnapshot.forEach((doc) => {
-        users.push(doc.data() as User)
+        users.push({ id: doc.id, ...doc.data() } as User)
       })
       searchedUsers.value = users
       toggleLoading(false)
@@ -93,11 +93,11 @@ function clearSearch() {
       </div>
     </div>
 
-    <div class="h-full pt15 overflow-auto flex flex-col b-b b-l">
-      <div class="mx-auto c-gray" v-if="isSearching">
-        <p v-if="isLoading">Loading...</p>
+    <div class="h-full pt15 overflow-auto flex wfull flex-col b-b b-l">
+      <p v-if="isLoading" class="mx-auto c-gray">Loading...</p>
+      <div class="c-gray" v-if="isSearching">
         <div v-if="searchedUsers.length > 0">
-          <p>Search Result</p>
+          <p class="p2">Search Result</p>
           <ChatItem
             v-for="user in searchedUsers"
             :key="user.id"
@@ -105,7 +105,9 @@ function clearSearch() {
             :room-id="`${user.id}-${currentUser.id}`"
           />
         </div>
-        <p v-if="searchedUsers.length === 0 && search && !isLoading">Empty</p>
+        <p v-if="searchedUsers.length === 0 && search && !isLoading" class="text-center p2">
+          Empty
+        </p>
         <template v-if="users.length > 0 && !search">
           <ChatItem
             v-for="user in users"
