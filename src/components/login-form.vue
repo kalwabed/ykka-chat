@@ -1,12 +1,10 @@
 <script setup lang="ts">
 const { login } = useUserStore()
-const chatStore = useChatStore()
 
 const username = ref('')
 
 const submit = async () => {
   await login(username.value)
-  chatStore.$patch({ room: { id: '123' } })
   username.value = ''
 }
 </script>

@@ -11,7 +11,6 @@ export const useChatStore = defineStore('chat', {
   getters: {
     chatPath() {
       const path: string = 'rooms/' + this.room.id + '/chats'
-      // const path: string = 'rooms/kaliwa/chats'
 
       return path
     },
