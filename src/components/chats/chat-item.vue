@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { doc } from 'firebase/firestore'
+import { useFirestore } from '@vueuse/firebase/useFirestore'
+import { firestore } from '@/utils/firebase'
 import type { User } from '@/utils/types'
 
 const props = defineProps<{
@@ -8,8 +11,22 @@ const props = defineProps<{
 
 const roomStore = useChatStore()
 const { currentUser } = useUserStore()
+const userDoc = doc(firestore, 'users', currentUser.id)
+const userFireStore = useFirestore(userDoc) as Ref<User>
 
-const openRoom = () => {
+const openRoom = async () => {
+  const existingRoom = userFireStore.value.rooms.find((r) => r.receiver.id === props.user.id)
+  if (props.user?.id && existingRoom) {
+    roomStore.$patch({
+      room: {
+        receiver: props.user,
+        id: existingRoom.id,
+        sender: currentUser
+      }
+    })
+    return
+  }
+
   roomStore.$patch({
     room: {
       receiver: props.user,

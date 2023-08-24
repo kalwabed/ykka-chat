@@ -14,7 +14,10 @@ const [isSearching, toggleSearching] = useToggle(false)
 const [isLoading, toggleLoading] = useToggle(false)
 const { currentUser } = useUserStore()
 const user = useFirestore(doc(firestore, 'users', currentUser.id)) as Ref<User>
-const users = useFirestore(collection(firestore, 'users')) as Ref<User[]>
+const getUsersWithoutCurrentUser = computed(() => {
+  return query(collection(firestore, 'users'), where('username', '!=', currentUser.username))
+})
+const users = useFirestore(getUsersWithoutCurrentUser) as Ref<User[]>
 
 watchDebounced(
   search,
