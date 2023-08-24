@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref as dbRef, onValue, type Unsubscribe } from 'firebase/database'
+import { useDateFormat } from '@vueuse/core'
 
 import type { Chat } from '@/utils/types'
 import { db } from '@/utils/firebase'
@@ -47,7 +48,7 @@ watchEffect(async () => {
       >
         <div class="c-teal50 px2 text-balance">{{ chat.message }}</div>
         <span class="c-teal2 text-xs absolute bottom-1 right-2">{{
-          new Intl.DateTimeFormat('id', { timeStyle: 'short' }).format(new Date(chat.createdAt))
+          useDateFormat(chat.createdAt, 'HH:mm', { locales: 'id' }).value
         }}</span>
       </li>
       <li ref="bottomRef"></li>
