@@ -23,16 +23,28 @@ export const useChatStore = defineStore('chat', {
   actions: {
     async sendChat(message: string) {
       const { currentUser } = useUserStore()
+      const receiverId = this.room.receiver?.id
 
       const newChatKey = push(child(dbRef(db), this.chatPath)).key
       const newChatRef = dbRef(db, this.chatPath + '/' + newChatKey)
+      const notificationKey = push(child(dbRef(db), 'users/' + receiverId + '/notifications')).key
+      const receiverRef = dbRef(db, 'users/' + receiverId + '/notifications/' + notificationKey)
 
-      await update(newChatRef, {
-        message,
-        id: newChatKey,
-        sender: { id: currentUser?.id, username: currentUser?.username },
-        createdAt: new Date().toISOString()
-      })
+      await Promise.race([
+        update(newChatRef, {
+          message,
+          id: newChatKey,
+          sender: { id: currentUser?.id, username: currentUser?.username },
+          createdAt: new Date().toISOString()
+        }),
+        update(receiverRef, {
+          message,
+          id: newChatKey,
+          isRead: false,
+          sender: { id: currentUser?.id, username: currentUser?.username },
+          createdAt: new Date().toISOString()
+        })
+      ])
     }
   }
 })

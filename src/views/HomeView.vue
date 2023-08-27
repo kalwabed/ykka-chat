@@ -5,7 +5,8 @@ import ChatCore from '@/components/chats/chat-core.vue'
 const chatStore = useChatStore()
 const userStore = useUserStore()
 
-const logout = () => {
+const logout = async () => {
+  await userStore.clearUserSocket()
   userStore.$reset()
   chatStore.$reset()
 }

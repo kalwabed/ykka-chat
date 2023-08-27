@@ -1,10 +1,11 @@
 <script setup lang="ts">
-const { login } = useUserStore()
+const { login, createUserSocket } = useUserStore()
 
 const username = ref('')
 
 const submit = async () => {
-  await login(username.value)
+  const status = await login(username.value)
+  await createUserSocket(!status.isAlreadyExist)
   username.value = ''
 }
 </script>

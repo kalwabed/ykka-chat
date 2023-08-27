@@ -15,7 +15,7 @@ const userDoc = doc(firestore, 'users', currentUser.id)
 const userFireStore = useFirestore(userDoc) as Ref<User>
 
 const openRoom = async () => {
-  const existingRoom = userFireStore.value.rooms.find((r) => r.receiver.id === props.user.id)
+  const existingRoom = userFireStore.value?.rooms?.find((r) => r.receiver.id === props.user.id)
   if (props.user?.id && existingRoom) {
     roomStore.$patch({
       room: {

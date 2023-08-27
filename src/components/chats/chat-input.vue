@@ -11,7 +11,7 @@ const userDoc = doc(firestore, 'users', currentUser.id)
 const user = useFirestore(userDoc) as Ref<User>
 
 const needToCreatingANewRoom = computed(() => {
-  const existingRoom = user.value.rooms.find((r) => r.id === room.id)
+  const existingRoom = user.value?.rooms?.find((r) => r.id === room.id)
   return !existingRoom
 })
 

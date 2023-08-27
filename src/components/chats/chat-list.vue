@@ -17,7 +17,15 @@ const user = useFirestore(doc(firestore, 'users', currentUser.id)) as Ref<User>
 const getUsersWithoutCurrentUser = computed(() => {
   return query(collection(firestore, 'users'), where('username', '!=', currentUser.username))
 })
-const users = useFirestore(getUsersWithoutCurrentUser) as Ref<User[]>
+const users = computedAsync(async () => {
+  const usersSnapshot = await getDocs(getUsersWithoutCurrentUser.value)
+  const users: User[] = []
+  usersSnapshot.forEach((doc) => {
+    users.push({ id: doc.id, ...doc.data() } as User)
+  })
+
+  return users
+}, [])
 
 watchDebounced(
   search,
@@ -122,9 +130,9 @@ function clearSearch() {
       </div>
       <template v-else>
         <ChatItem
+          v-for="data in user?.rooms"
           :user="data.receiver"
           :room-id="data.id"
-          v-for="data in user?.rooms"
           :key="data.id"
         />
       </template>
