@@ -25,7 +25,8 @@ export const useUserStore = defineStore('user', {
           username,
           fullname: username,
           createdAt: new Date().toISOString(),
-          rooms: []
+          rooms: [],
+          notifications: []
         })
         const user = await getDoc(doc(firestore, 'users', createdUser.id))
         this.currentUser = { id: user.id, ...user.data() } as User

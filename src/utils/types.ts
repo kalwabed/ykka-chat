@@ -4,6 +4,7 @@ export interface User {
   fullname: string
   createdAt: string
   rooms: Room[]
+  notifications: UserNotification[]
 }
 
 export interface Room {
@@ -17,4 +18,15 @@ export interface Chat {
   id: string
   createdAt: string
   sender: Partial<User>
+}
+
+export interface UserNotification {
+  createdAt: string
+  id: string
+  isRead: boolean
+  message: string
+  sender: {
+    id: string
+    username: string
+  }
 }

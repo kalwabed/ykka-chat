@@ -2,7 +2,7 @@
 import { doc } from 'firebase/firestore'
 import { useFirestore } from '@vueuse/firebase/useFirestore'
 import { firestore } from '@/utils/firebase'
-import type { User } from '@/utils/types'
+import type { User, UserNotification } from '@/utils/types'
 
 const props = defineProps<{
   user: Partial<User>
@@ -12,10 +12,11 @@ const props = defineProps<{
 const roomStore = useChatStore()
 const { currentUser } = useUserStore()
 const userDoc = doc(firestore, 'users', currentUser.id)
-const userFireStore = useFirestore(userDoc) as Ref<User>
+const userFirestore = useFirestore(userDoc) as Ref<User>
+const notification = ref<UserNotification>()
 
 const openRoom = async () => {
-  const existingRoom = userFireStore.value?.rooms?.find((r) => r.receiver.id === props.user.id)
+  const existingRoom = userFirestore.value?.rooms?.find((r) => r.receiver.id === props.user.id)
   if (props.user?.id && existingRoom) {
     roomStore.$patch({
       room: {
@@ -35,6 +36,14 @@ const openRoom = async () => {
     }
   })
 }
+
+watchEffect(() => {
+  const notifications = userFirestore.value?.notifications ?? []
+  if (notifications?.length > 0) {
+    const filteredNotifications = notifications.filter((notif) => notif.sender.id === props.user.id)
+    notification.value = filteredNotifications[filteredNotifications.length - 1]
+  }
+})
 </script>
 
 <template>
@@ -56,7 +65,7 @@ const openRoom = async () => {
       </div>
       <div class="w-68% flex flex-col">
         <b>{{ user.fullname }}</b>
-        <p class="truncate c-gray5">Lorem ipsum dolor sit amet.</p>
+        <p class="truncate c-gray5">{{ notification?.message }}</p>
       </div>
       <div class="flex items-end flex-col w-17%">
         <small class="c-gray">2m ago</small>
