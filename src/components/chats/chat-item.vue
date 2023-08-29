@@ -68,8 +68,12 @@ watchEffect(() => {
         <p class="truncate c-gray5">{{ notification?.message }}</p>
       </div>
       <div class="flex items-end flex-col w-17%">
-        <small class="c-gray">2m ago</small>
-        <span class="i-ph:checks w6 h6 rd-full c-green"></span>
+        <small v-if="notification" class="c-gray text-xs">{{
+          new Intl.DateTimeFormat('id', { timeStyle: 'short' }).format(
+            new Date(notification?.createdAt ?? '')
+          )
+        }}</small>
+        <span v-if="notification" class="i-ph:checks w6 h6 rd-full c-green"></span>
       </div>
     </div>
   </button>
