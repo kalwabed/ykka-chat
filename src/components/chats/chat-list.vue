@@ -72,8 +72,8 @@ function clearSearch() {
 </script>
 
 <template>
-  <div class="w-3/4">
-    <div class="px4 py2.5 w[27.3875rem] b-b fixed bg-white z20 b-l b-y">
+  <div class="w-[43%]">
+    <div class="px4 py2.5 w[27.42rem] b-b fixed bg-white z20 b-l b-y">
       <div v-if="isSearching" class="flex gap2 items-center">
         <button
           class="hover:(c-teal9 bg-teal1) transition rd-full p1"
@@ -94,7 +94,7 @@ function clearSearch() {
           </button>
         </div>
       </div>
-      <div v-else class="flex justify-between items-center py.9">
+      <div v-else class="flex justify-between wfull items-center py.9">
         <div class="flex flex-col">
           <b>YKKA Chat</b>
         </div>
@@ -106,36 +106,54 @@ function clearSearch() {
 
     <div class="h-full pt15 overflow-auto flex wfull flex-col b-b b-l">
       <p v-if="isLoading" class="mx-auto c-gray">Loading...</p>
-      <div class="c-gray" v-if="isSearching">
-        <div v-if="searchedUsers.length > 0">
-          <p class="p2">Search Result</p>
+      <Transition>
+        <div class="c-gray" v-if="isSearching">
+          <div v-if="searchedUsers.length > 0">
+            <p class="p2">Search Result</p>
+            <ChatItem
+              v-for="user in searchedUsers"
+              :key="user.id"
+              :user="user"
+              :room-id="`${user.id}-${currentUser.id}`"
+            />
+          </div>
+          <p v-if="searchedUsers.length === 0 && search && !isLoading" class="text-center p2">
+            Empty
+          </p>
+          <template v-if="users.length > 0 && !search">
+            <ChatItem
+              v-for="user in users"
+              :key="user.id"
+              :user="user"
+              :room-id="`${user.id}-${currentUser.id}`"
+            />
+          </template>
+        </div>
+      </Transition>
+      <Transition appear>
+        <div v-if="!isSearching">
           <ChatItem
-            v-for="user in searchedUsers"
-            :key="user.id"
-            :user="user"
-            :room-id="`${user.id}-${currentUser.id}`"
+            v-for="data in user?.rooms"
+            :user="data.receiver"
+            :room-id="data.id"
+            :key="data.id"
           />
         </div>
-        <p v-if="searchedUsers.length === 0 && search && !isLoading" class="text-center p2">
-          Empty
-        </p>
-        <template v-if="users.length > 0 && !search">
-          <ChatItem
-            v-for="user in users"
-            :key="user.id"
-            :user="user"
-            :room-id="`${user.id}-${currentUser.id}`"
-          />
-        </template>
-      </div>
-      <template v-else>
-        <ChatItem
-          v-for="data in user?.rooms"
-          :user="data.receiver"
-          :room-id="data.id"
-          :key="data.id"
-        />
-      </template>
+      </Transition>
     </div>
   </div>
 </template>
+
+<style scoped>
+/* we will explain what these classes do next! */
+.v-enter-active,
+.v-leave-active {
+  transition: all 0.3s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
+}
+</style>

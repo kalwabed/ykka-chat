@@ -63,17 +63,19 @@ watchEffect(() => {
           decoding="async"
         />
       </div>
-      <div class="w-68% flex flex-col">
-        <b>{{ user.fullname }}</b>
-        <p class="truncate c-gray5">{{ notification?.message }}</p>
-      </div>
-      <div class="flex items-end flex-col w-17%">
-        <small v-if="notification" class="c-gray text-xs">{{
-          new Intl.DateTimeFormat('id', { timeStyle: 'short' }).format(
-            new Date(notification?.createdAt ?? '')
-          )
-        }}</small>
-        <span v-if="notification" class="i-ph:checks w6 h6 rd-full c-green"></span>
+      <div class="w-85% flex flex-col">
+        <div class="flex justify-between items-center">
+          <b>{{ user.fullname }}</b>
+          <div class="inline-flex gap1.5">
+            <span v-if="notification" class="i-ph:checks w4 h4 rd-full c-green"></span>
+            <small v-if="notification" class="c-gray text-xs">{{
+              new Intl.DateTimeFormat('id', { timeStyle: 'short' }).format(
+                new Date(notification?.createdAt ?? '')
+              )
+            }}</small>
+          </div>
+        </div>
+        <p class="truncate c-gray5" :title="notification?.message">{{ notification?.message }}</p>
       </div>
     </div>
   </button>
