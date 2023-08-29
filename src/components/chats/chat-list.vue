@@ -72,8 +72,8 @@ function clearSearch() {
 </script>
 
 <template>
-  <div class="w-[43%]">
-    <div class="px4 py2.5 w[27.42rem] b-b fixed bg-white z20 b-l b-y">
+  <div class="max-w-[43%] w-full">
+    <div class="px4 py2.5 max-w[27.5rem] wfull b-b fixed bg-white z20 b-l b-y">
       <div v-if="isSearching" class="flex gap2 items-center">
         <button
           class="hover:(c-teal9 bg-teal1) transition rd-full p1"
@@ -104,7 +104,7 @@ function clearSearch() {
       </div>
     </div>
 
-    <div class="h-full pt15 overflow-auto flex wfull flex-col b-b b-l">
+    <div class="h-full pt15 overflow-y-auto overflow-x-hidden flex wfull flex-col b-b b-l">
       <p v-if="isLoading" class="mx-auto c-gray">Loading...</p>
       <Transition>
         <div class="c-gray" v-if="isSearching">
