@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { addDoc, collection, doc, getDocs, query, where, getDoc } from 'firebase/firestore'
-import { ref as dbRef, update } from 'firebase/database'
+import { ref as dbRef, update, goOnline } from 'firebase/database'
 
 import { db, firestore } from '@/utils/firebase'
 import type { User } from '@/utils/types'
@@ -20,6 +20,7 @@ export const useUserStore = defineStore('user', {
       const userSnapshot = await getDocs(user.value)
       const isUserNotExist = userSnapshot.docs.length === 0
 
+      goOnline(db)
       if (isUserNotExist) {
         const createdUser = await addDoc(collection(firestore, 'users'), {
           username,

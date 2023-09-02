@@ -8,9 +8,9 @@ const { currentUser } = useUserStore()
 </script>
 
 <template>
-  <div class="flex my-8 h-3xl">
+  <div class="flex my-8 h-3xl rd shadow">
     <ChatList />
-    <div class="relative w-full mx-auto h-full bg-white b flex flex-col">
+    <div class="relative w-full mx-auto h-full bg-white b flex flex-col rd-r">
       <div v-if="room.id" class="flex justify-between h-15 w-full py2 px4 shadow b-b">
         <div class="flex items-center gap4">
           <img

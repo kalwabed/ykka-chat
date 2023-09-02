@@ -1,6 +1,8 @@
 <script setup lang="ts">
+import { goOffline } from 'firebase/database'
 import LoginForm from '@/components/login-form.vue'
 import ChatCore from '@/components/chats/chat-core.vue'
+import { db } from '@/utils/firebase'
 
 const chatStore = useChatStore()
 const userStore = useUserStore()
@@ -9,6 +11,7 @@ const logout = async () => {
   await userStore.clearUserSocket()
   userStore.$reset()
   chatStore.$reset()
+  goOffline(db)
 }
 </script>
 
