@@ -3,6 +3,7 @@ import { doc } from 'firebase/firestore'
 import { useFirestore } from '@vueuse/firebase/useFirestore'
 import { firestore } from '@/utils/firebase'
 import type { User, UserNotification } from '@/utils/types'
+import { format, isToday } from 'date-fns'
 
 const props = defineProps<{
   user: Partial<User>
@@ -68,11 +69,16 @@ watchEffect(() => {
           <b>{{ user.fullname }}</b>
           <div class="inline-flex gap1.5">
             <span v-if="notification" class="i-ph:checks w4 h4 rd-full c-green"></span>
-            <small v-if="notification" class="c-gray text-xs">{{
-              new Intl.DateTimeFormat('id', { timeStyle: 'short' }).format(
-                new Date(notification?.createdAt ?? '')
-              )
-            }}</small>
+            <small
+              v-if="notification"
+              class="c-gray text-xs"
+              :title="new Date(notification?.createdAt ?? '').toISOString()"
+              >{{
+                isToday(new Date(notification?.createdAt ?? ''))
+                  ? format(new Date(notification?.createdAt ?? ''), 'k:mm')
+                  : format(new Date(notification?.createdAt ?? ''), 'iii')
+              }}</small
+            >
           </div>
         </div>
         <p class="truncate c-gray5" :title="notification?.message">{{ notification?.message }}</p>

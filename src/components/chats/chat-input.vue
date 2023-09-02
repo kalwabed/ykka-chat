@@ -42,7 +42,7 @@ const onSend = async () => {
   <div class="absolute bottom-4 left-0 right-0 bg-white pt2">
     <div class="relative w-95% mx-auto">
       <input
-        class="focus:(ring) hover:(bg-gray50 b-gray3) px3 py3 w-full overflow-hidden b transition rd-lg"
+        class="focus:(ring-2) hover:(bg-gray50 b-gray3) px3 py3 w-full outline-none overflow-hidden b transition rd-lg"
         data-test="chat-input"
         placeholder="Send your message..."
         type="text"
