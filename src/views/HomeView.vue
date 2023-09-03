@@ -16,10 +16,9 @@ const logout = async () => {
 </script>
 
 <template>
-  <div class="w-full">
+  <template v-if="userStore.currentUser?.id">
     <button class="btn mb4 w-fit rd b-b-2" @click="logout">Logout</button>
-    <b>Room id: {{ chatStore.room.id }}</b>
-    <ChatCore v-if="userStore.currentUser?.id" />
-    <LoginForm v-else />
-  </div>
+    <ChatCore />
+  </template>
+  <LoginForm v-else />
 </template>

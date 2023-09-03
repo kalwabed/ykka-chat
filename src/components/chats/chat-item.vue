@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { doc } from 'firebase/firestore'
 import { useFirestore } from '@vueuse/firebase/useFirestore'
+import { format, isToday } from 'date-fns'
 import { firestore } from '@/utils/firebase'
 import type { User, UserNotification } from '@/utils/types'
-import { format, isToday } from 'date-fns'
 
 const props = defineProps<{
   user: Partial<User>
