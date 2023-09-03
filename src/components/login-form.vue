@@ -17,6 +17,7 @@ const onLogin = async () => {
     const status = await login(_username)
     await createUserSocket(!status.isAlreadyExist)
     username.value = ''
+    errorMsg.value = ''
   } else {
     errorMsg.value = 'Username nggak boleh aneh-aneh. Simple aja ya. Maksimal 8 karakter'
   }
