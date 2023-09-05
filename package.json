@@ -14,6 +14,7 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@ark-ui/vue": "^0.7.0",
     "@unocss/reset": "^0.55.4",
     "@vueuse/core": "^10.4.1",
     "@vueuse/firebase": "^10.4.1",

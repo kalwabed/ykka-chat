@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { avatarUrl } from '@/utils/profile'
 import ChatInput from './chat-input.vue'
 import ChatList from './chat-list.vue'
 import MessageList from './message-list.vue'
@@ -14,7 +15,7 @@ const { currentUser } = useUserStore()
       <div v-if="room.id" class="flex justify-between h-15 w-full py2 px4 shadow b-b">
         <div class="flex items-center gap4">
           <img
-            :src="`https://api.dicebear.com/6.x/notionists-neutral/svg?seed=${room.receiver?.username}&radius=50&size=35`"
+            :src="`${avatarUrl}${room.receiver?.username}&radius=50&size=35`"
             alt="User profile"
             width="35"
             height="35"

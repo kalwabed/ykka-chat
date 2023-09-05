@@ -4,6 +4,7 @@ import { useFirestore } from '@vueuse/firebase/useFirestore'
 import { format, isToday } from 'date-fns'
 import { firestore } from '@/utils/firebase'
 import type { User, UserNotification } from '@/utils/types'
+import { avatarUrl } from '@/utils/profile'
 
 const props = defineProps<{
   user: Partial<User>
@@ -55,7 +56,7 @@ watchEffect(() => {
     <div class="flex gap2 justify-between items-center w-full h-12">
       <div class="w-15%">
         <img
-          :src="`https://api.dicebear.com/6.x/notionists-neutral/svg?seed=${user.username}`"
+          :src="`${avatarUrl}${user.username}`"
           alt="User picture"
           class="rd-full bg-white"
           width="50"

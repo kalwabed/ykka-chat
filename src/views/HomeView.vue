@@ -1,24 +1,11 @@
 <script setup lang="ts">
-import { goOffline } from 'firebase/database'
 import LoginForm from '@/components/login-form.vue'
 import ChatCore from '@/components/chats/chat-core.vue'
-import { db } from '@/utils/firebase'
 
-const chatStore = useChatStore()
 const userStore = useUserStore()
-
-const logout = async () => {
-  await userStore.clearUserSocket()
-  userStore.$reset()
-  chatStore.$reset()
-  goOffline(db)
-}
 </script>
 
 <template>
-  <template v-if="userStore.currentUser?.id">
-    <button class="btn mb4 w-fit rd b-b-2" @click="logout">Logout</button>
-    <ChatCore />
-  </template>
+  <ChatCore v-if="userStore.currentUser?.id" />
   <LoginForm v-else />
 </template>
