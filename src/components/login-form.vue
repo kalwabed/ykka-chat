@@ -25,11 +25,11 @@ const onLogin = async () => {
 </script>
 
 <template>
-  <div class="mx-auto h-full mt64">
+  <div class="h-full mb32 flex flex-col justify-center px4 md:(px0 mx-auto)">
     <h1 class="text-4xl leading-relaxed font-bold">Login</h1>
     <p class="c-gray5">Using your favorite username.</p>
-    <form data-test="form" @submit.prevent="onLogin" class="flex flex-col gap4 mt4">
-      <div role="group" class="flex flex-col w-sm">
+    <form data-test="form" @submit.prevent="onLogin" class="flex flex-col gap4 mt4 w-full md:w-sm">
+      <div role="group" class="flex flex-col">
         <input
           data-test="username"
           class="b focus:ring-2 transition outline-none p2 rd"
