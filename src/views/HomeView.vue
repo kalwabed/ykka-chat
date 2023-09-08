@@ -1,7 +1,15 @@
 <script setup lang="ts">
-import LoginForm from '@/components/login-form.vue'
-import ChatCore from '@/components/chats/chat-core.vue'
-import MobileAlert from '@/components/mobile-alert.vue'
+const MobileAlert = defineAsyncComponent(() => {
+  return import('@/components/mobile-alert.vue')
+})
+
+const ChatCore = defineAsyncComponent(() => {
+  return import('@/components/chats/chat-core.vue')
+})
+
+const LoginForm = defineAsyncComponent(() => {
+  return import('@/components/login-form.vue')
+})
 
 const isMobile = ref(false)
 
@@ -22,7 +30,9 @@ onBeforeMount(() => {
 <template>
   <MobileAlert v-if="isMobile" />
   <template v-else>
-    <ChatCore v-if="userStore.currentUser?.id" />
+    <Suspense v-if="userStore.currentUser?.id">
+      <ChatCore />
+    </Suspense>
     <LoginForm v-else />
   </template>
 </template>

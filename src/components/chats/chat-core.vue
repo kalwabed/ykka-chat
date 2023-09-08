@@ -1,11 +1,17 @@
 <script setup lang="ts">
 import { avatarUrl } from '@/utils/profile'
-import ChatInput from './chat-input.vue'
 import ChatList from './chat-list.vue'
-import MessageList from './message-list.vue'
 
 const { room } = useChatStore()
 const { currentUser } = useUserStore()
+
+const ChatInput = defineAsyncComponent(() => {
+  return import('./chat-input.vue')
+})
+
+const MessageList = defineAsyncComponent(() => {
+  return import('./message-list.vue')
+})
 </script>
 
 <template>
@@ -43,8 +49,12 @@ const { currentUser } = useUserStore()
         Welcome <span class="c-red">{{ currentUser.fullname }}</span> to the chat app!
       </b>
 
-      <MessageList />
-      <ChatInput v-if="room.id" />
+      <Suspense>
+        <MessageList />
+      </Suspense>
+      <Suspense v-if="room.id">
+        <ChatInput />
+      </Suspense>
     </div>
   </div>
 </template>

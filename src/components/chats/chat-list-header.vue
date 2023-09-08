@@ -2,7 +2,6 @@
 import { useFirestore } from '@vueuse/firebase'
 import { doc } from 'firebase/firestore'
 
-import ProfileMenu from '@/components/profile-menu.vue'
 import { firestore } from '@/utils/firebase'
 import { avatarUrl } from '@/utils/profile'
 import type { User } from '@/utils/types'
@@ -29,6 +28,10 @@ function clearSearch() {
   chlProvider!.searchedUsers.value = []
   chlProvider!.isLoading.value = false
 }
+
+const ProfileMenu = defineAsyncComponent(() => {
+  return import('@/components/profile-menu.vue')
+})
 </script>
 
 <template>
