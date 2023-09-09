@@ -45,16 +45,21 @@ const MessageList = defineAsyncComponent(() => {
           </button>
         </div>
       </div>
-      <b v-else class="p4 text-center">
-        Welcome <span class="c-red">{{ currentUser.fullname }}</span> to the chat app!
-      </b>
+      <div v-else class="p4 m-auto flex flex-col justify-center">
+        <i class="i-tabler:balloon w12 h12 mx-auto c-red"></i>
+        <b class="text-lg">
+          Welcome <span class="c-red">{{ currentUser.fullname }}</span> to YKKA chat!
+        </b>
+      </div>
 
-      <Suspense>
-        <MessageList />
-      </Suspense>
-      <Suspense v-if="room.id">
-        <ChatInput />
-      </Suspense>
+      <template v-if="room.id">
+        <Suspense>
+          <MessageList />
+        </Suspense>
+        <Suspense>
+          <ChatInput />
+        </Suspense>
+      </template>
     </div>
   </div>
 </template>
