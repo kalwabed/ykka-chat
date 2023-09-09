@@ -33,12 +33,12 @@ onBeforeMount(() => {
     <Suspense v-if="userStore.currentUser?.id">
       <ChatCore />
     </Suspense>
-    <div class="bg-white" v-else>
+    <div class="flex flex-col justify-center items-center" v-else>
       <LoginForm />
-      <div class="w-full flex font-mono pb2">
+      <div class="w-full flex font-mono pb2 mt4">
         <a
           href="https://github.com/kalwabed/ykka-chat"
-          class="text-center outline-none c-blue mx-auto inline-flex items-center gap1 focus:(ring-2 ring-blue) bg-white px4 backdrop-blur-8 backdrop-filter bg-opacity-50"
+          class="text-center outline-none c-black mx-auto inline-flex items-center gap1 focus:(ring-2 ring-blue) bg-white px4 backdrop-blur-8 backdrop-filter bg-opacity-0 transition hover:(bg-opacity-20 shadow-lg)"
           title="Github repository"
           rel="noopener noreferrer"
           target="_blank"

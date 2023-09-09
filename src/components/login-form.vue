@@ -25,21 +25,28 @@ const onLogin = async () => {
 </script>
 
 <template>
-  <div class="h-full mb32 flex flex-col justify-center px4 md:(px0 mx-auto)">
+  <div
+    class="flex flex-col justify-center bg-white p12 rd shadow b b-gray3 b-opacity-50 backdrop-blur-4 backdrop-filter bg-opacity-50"
+  >
     <span class="text-sm font-medium c-pink8 bg-pink2 rd-lg wfit px.8">YangKitaKitaAja Chat</span>
     <h1 class="text-4xl leading-relaxed font-bold">Login</h1>
-    <p class="c-gray5">Using your favorite username.</p>
+    <p class="c-gray7">Using your favorite username.</p>
     <form data-test="form" @submit.prevent="onLogin" class="flex flex-col gap4 mt4 w-full md:w-sm">
       <div role="group" class="flex flex-col">
         <input
           data-test="username"
-          class="b focus:ring-2 transition outline-none px2 py1 rd"
+          class="b-b focus:ring-2 transition duration-400 outline-none px2 py1 bg-white bg-opacity-60"
           type="text"
           v-model="username"
         />
         <small class="c-red">{{ errorMsg }}</small>
       </div>
-      <button class="btn font-semibold transition" type="submit">Let that sink in</button>
+      <button
+        class="font-semibold outline-none focus:ring-2 hover:bg-gray-8 transition w-full py1 b b-gray5 bg-gray-7 c-gray-1 inline-flex gap-2 items-center justify-center"
+        type="submit"
+      >
+        Let's chat <i class="i-radix-icons:chat-bubble"></i>
+      </button>
     </form>
   </div>
 </template>

@@ -3,7 +3,7 @@ import HomeView from './views/HomeView.vue'
 </script>
 
 <template>
-  <main class="relative max-w-screen-lg hfull mx-auto flex flex-auto flex-col font-sans">
+  <main class="relative max-w-screen-lg hfull mx-auto flex justify-center flex-col font-sans">
     <HomeView />
   </main>
 </template>
