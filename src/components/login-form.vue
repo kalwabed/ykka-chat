@@ -26,6 +26,7 @@ const onLogin = async () => {
 
 <template>
   <div class="h-full mb32 flex flex-col justify-center px4 md:(px0 mx-auto)">
+    <span class="text-sm font-medium c-pink8 bg-pink2 rd-lg wfit px.8">YangKitaKitaAja Chat</span>
     <h1 class="text-4xl leading-relaxed font-bold">Login</h1>
     <p class="c-gray5">Using your favorite username.</p>
     <form data-test="form" @submit.prevent="onLogin" class="flex flex-col gap4 mt4 w-full md:w-sm">
