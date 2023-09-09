@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { RouterView } from 'vue-router'
+import HomeView from './views/HomeView.vue'
 </script>
 
 <template>
   <main class="max-w-screen-lg hfull mx-auto flex flex-auto flex-col">
-    <RouterView />
+    <HomeView />
   </main>
 </template>
 
