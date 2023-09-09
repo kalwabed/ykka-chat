@@ -43,8 +43,10 @@ watchEffect(async () => {
         data-test="chat-msg"
         v-for="chat in chats"
         :key="chat.id"
-        class="relative flex flex-col w-fit min-w-16 max-w-90% bg-teal7 b-teal6 rd pr2 pt1 pb5"
-        :class="chat.sender.id === currentUser.id ? 'self-end' : 'c-red'"
+        class="relative flex flex-col w-fit min-w-16 max-w-90% bg-opacity-20 backdrop-blur-10 rd pr2 pt1 pb5"
+        :class="
+          chat.sender.id === currentUser.id ? 'self-end bg-gray b-gray8' : 'bg-green7 b-green'
+        "
       >
         <div class="c-teal50 px2 text-balance">{{ chat.message }}</div>
         <span class="c-teal2 text-xs absolute bottom-1 right-2">{{
