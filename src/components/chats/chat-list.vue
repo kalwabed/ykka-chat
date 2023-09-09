@@ -69,7 +69,9 @@ watchDebounced(
 <template>
   <div class="max-w-[43%] w-full rd-l">
     <ChatListHeader />
-    <div class="h-full pt17 overflow-y-auto overflow-x-hidden flex wfull flex-col b-b b-l rd-l">
+    <div
+      class="h-full pt17 overflow-y-auto overflow-x-hidden bg-white flex wfull flex-col b-b b-l rd-l"
+    >
       <p v-if="isLoading" class="mx-auto c-gray">Loading...</p>
       <Transition>
         <div class="c-gray" v-if="isSearching">

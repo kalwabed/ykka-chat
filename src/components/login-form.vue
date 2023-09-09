@@ -33,13 +33,13 @@ const onLogin = async () => {
       <div role="group" class="flex flex-col">
         <input
           data-test="username"
-          class="b focus:ring-2 transition outline-none p2 rd"
+          class="b focus:ring-2 transition outline-none px2 py1 rd"
           type="text"
           v-model="username"
         />
         <small class="c-red">{{ errorMsg }}</small>
       </div>
-      <button class="btn font-medium transition" type="submit">Let that sink in</button>
+      <button class="btn font-semibold transition" type="submit">Let that sink in</button>
     </form>
   </div>
 </template>
