@@ -51,7 +51,7 @@ watchEffect(() => {
 <template>
   <button
     @click="openRoom"
-    class="p-4 w-full b-b hover:bg-gray50 transition focus:bg-gray1 text-left"
+    class="p-4 w-full b-b b-gray7 c-gray1 hover:bg-gray8 transition focus:bg-gray7 text-left"
   >
     <div class="flex gap2 justify-between items-center w-full h-12">
       <div class="w-15%">
@@ -82,7 +82,7 @@ watchEffect(() => {
             >
           </div>
         </div>
-        <p class="truncate c-gray5" :title="notification?.message">{{ notification?.message }}</p>
+        <p class="truncate c-gray" :title="notification?.message">{{ notification?.message }}</p>
       </div>
     </div>
   </button>

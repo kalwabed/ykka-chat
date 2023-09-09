@@ -35,10 +35,12 @@ const ProfileMenu = defineAsyncComponent(() => {
 </script>
 
 <template>
-  <div class="px4 py1.5 max-w[27.5rem] wfull b-b fixed bg-white z20 b-l b-y rd-tl">
+  <div
+    class="px4 py1.5 max-w[27.5rem] wfull b-b sticky bg-gray-9 backdrop-blur-4 backdrop-filter bg-opacity-40 z20 b-l b-y b-gray7 rd-tl"
+  >
     <div v-if="chlProvider?.isSearching.value" class="flex gap2 items-center py1.8">
       <button
-        class="hover:(c-teal9 bg-teal1) transition rd-full p1"
+        class="hover:(c-pink9 bg-pink1) transition rd-full p1"
         title="Back"
         @click="chlProvider.isSearching.value = false"
       >
@@ -49,7 +51,7 @@ const ProfileMenu = defineAsyncComponent(() => {
           ref="searchInput"
           v-model="chlProvider.search.value"
           placeholder="Search"
-          class="b-b-2 wfull outline-none focus:b-teal py1.6 transition"
+          class="b-b-2 wfull outline-none focus:b-pink py1.6 bg-transparent px2 transition"
         />
         <button class="absolute right-0 top-0 bottom-0 px2 transition" @click="clearSearch">
           <i class="i-ph:x block w4 h4 c-gray"></i>
@@ -68,7 +70,7 @@ const ProfileMenu = defineAsyncComponent(() => {
           />
         </ProfileMenu>
       </div>
-      <button @click="onOpenSearch" class="p2 rd-full hover:bg-gray1 transition">
+      <button @click="onOpenSearch" class="p2 rd-full hover:bg-gray8 transition">
         <i class="i-ph:magnifying-glass w4 h4 block"></i>
       </button>
     </div>

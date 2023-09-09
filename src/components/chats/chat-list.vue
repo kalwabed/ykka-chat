@@ -67,10 +67,10 @@ watchDebounced(
 </script>
 
 <template>
-  <div class="max-w-[43%] w-full rd-l">
+  <div class="max-w-[43%] w-full hfull rd-l c-gray1">
     <ChatListHeader />
     <div
-      class="h-full pt17 overflow-y-auto overflow-x-hidden bg-white flex wfull flex-col b-b b-l rd-l"
+      class="h-[calc(100%-67px)] overflow-y-auto overflow-x-hidden bg-gray9 backdrop-blur-10 bg-opacity-70 flex wfull flex-col b-b b-l b-gray7 rd-lb"
     >
       <p v-if="isLoading" class="mx-auto c-gray">Loading...</p>
       <Transition>
