@@ -51,7 +51,7 @@ watchEffect(() => {
 <template>
   <button
     @click="openRoom"
-    class="p-4 w-full b-b b-gray7 c-gray1 hover:bg-gray8 transition focus:bg-gray7 text-left"
+    class="p-4 w-full b-b b-gray7 c-gray1 hover:(bg-gray8 bg-opacity-50) transition focus:(bg-gray8 bg-opacity-70) text-left"
   >
     <div class="flex gap2 justify-between items-center w-full h-12">
       <div class="w-15%">

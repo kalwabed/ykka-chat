@@ -8,7 +8,8 @@ const chatStore = useChatStore()
 
 const logout = async () => {
   await userStore.clearUserSocket()
-  userStore.$reset()
+  // @ts-ignore
+  userStore.currentUser = {}
   chatStore.$reset()
   goOffline(db)
 }

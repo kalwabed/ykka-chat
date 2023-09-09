@@ -5,6 +5,7 @@ import { doc } from 'firebase/firestore'
 import { firestore } from '@/utils/firebase'
 import { avatarUrl } from '@/utils/profile'
 import type { User } from '@/utils/types'
+import ProfileMenu from '../profile-menu.vue'
 
 const searchInput = ref<HTMLInputElement>()
 const chlProvider = inject<{
@@ -28,10 +29,6 @@ function clearSearch() {
   chlProvider!.searchedUsers.value = []
   chlProvider!.isLoading.value = false
 }
-
-const ProfileMenu = defineAsyncComponent(() => {
-  return import('@/components/profile-menu.vue')
-})
 </script>
 
 <template>

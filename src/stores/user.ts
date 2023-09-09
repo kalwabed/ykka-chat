@@ -9,7 +9,7 @@ const usersRef = collection(firestore, 'users')
 
 export const useUserStore = defineStore('user', {
   state: () => ({
-    currentUser: {} as User
+    currentUser: useLocalStorage('user', {}) as Ref<User>
   }),
   actions: {
     async login(username: string) {
