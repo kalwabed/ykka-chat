@@ -52,14 +52,10 @@ const MessageList = defineAsyncComponent(() => {
         </b>
       </div>
 
-      <template v-if="room.id">
-        <Suspense>
-          <MessageList />
-        </Suspense>
-        <Suspense>
-          <ChatInput />
-        </Suspense>
-      </template>
+      <MessageList />
+      <Suspense v-if="room.id">
+        <ChatInput />
+      </Suspense>
     </div>
   </div>
 </template>
