@@ -17,8 +17,10 @@ const MessageList = defineAsyncComponent(() => {
 <template>
   <div class="flex my-8 h-3xl rd shadow">
     <ChatList />
-    <div class="relative w-full mx-auto h-full bg-white b flex flex-col rd-r">
-      <div v-if="room.id" class="flex justify-between h-15 w-full py2 px4 shadow b-b">
+    <div
+      class="relative w-full mx-auto h-full bg-gray9 c-gray1 backdrop-blur-32 bg-opacity-70 b b-gray7 flex flex-col rd-r"
+    >
+      <div v-if="room.id" class="flex justify-between h-15 w-full py2 px4 shadow b-b b-gray7">
         <div class="flex items-center gap4">
           <img
             :src="`${avatarUrl}${room.receiver?.username}&radius=50&size=35`"
@@ -29,7 +31,7 @@ const MessageList = defineAsyncComponent(() => {
           />
           <div class="flex flex-col">
             <b>{{ room.receiver?.fullname }}</b>
-            <small class="c-gray6">Online</small>
+            <small class="c-gray">Online</small>
           </div>
         </div>
 

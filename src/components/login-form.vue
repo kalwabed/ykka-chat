@@ -25,9 +25,7 @@ const onLogin = async () => {
 </script>
 
 <template>
-  <div
-    class="flex flex-col justify-center bg-white p12 rd shadow b b-gray3 b-opacity-50 backdrop-blur-4 backdrop-filter bg-opacity-50"
-  >
+  <div class="flex flex-col justify-center bg-white p12 rd shadow backdrop-blur-32 bg-opacity-20">
     <span class="text-sm font-medium c-pink8 bg-pink2 rd-lg wfit px.8">YangKitaKitaAja Chat</span>
     <h1 class="text-4xl leading-relaxed font-bold">Login</h1>
     <p class="c-gray7">Using your favorite username.</p>
