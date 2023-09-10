@@ -2,6 +2,7 @@
 import { doc } from 'firebase/firestore'
 import { useFirestore } from '@vueuse/firebase/useFirestore'
 import { format, isToday } from 'date-fns'
+
 import { firestore } from '@/utils/firebase'
 import type { User, UserNotification } from '@/utils/types'
 import { avatarUrl } from '@/utils/profile'
