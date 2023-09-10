@@ -47,11 +47,12 @@ const MessageList = defineAsyncComponent(() => {
           </button>
         </div>
       </div>
-      <div v-else class="p4 m-auto flex flex-col justify-center">
+      <div v-else class="px8 m-auto flex flex-col justify-center">
         <i class="i-tabler:balloon w12 h12 mx-auto c-red"></i>
-        <b class="text-lg">
+        <b class="text-lg text-center">
           Welcome <span class="c-red">{{ currentUser.fullname }}</span> to YKKA chat!
         </b>
+        <p class="text-center">This is a "just-kidding" chat app made by Kalwabed.</p>
       </div>
 
       <MessageList />
