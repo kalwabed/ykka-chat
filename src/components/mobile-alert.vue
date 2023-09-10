@@ -21,7 +21,7 @@
 
 <style scoped>
 .wrapper {
-  background-image: url(grain.svg);
+  background-image: url(/grain.svg);
   background-repeat: no-repeat;
   background-size: cover;
 }
