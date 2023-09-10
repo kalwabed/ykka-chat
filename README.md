@@ -1,71 +1,61 @@
-# ykka-chat
+# YKKA Chat
 
-This template should help get you started developing with Vue 3 in Vite.
+**Yang Kita-Kita Aja** ("Just us") chat is a simple chat application for exploring WebSocket technology with Firebase Realtime Database and Firebase Firestore.
 
-## Recommended IDE Setup
+## Demo
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+[ykka-chat.vercel.app](https://ykka-chat.vercel.app)
 
-## Type Support for `.vue` Imports in TS
+## Tech Stack
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+- Vue.js
+- TypeScript
+- UnoCSS
+- Pinia
+- Firebase
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+## Getting Started
 
-1. Disable the built-in TypeScript Extension
-    1) Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-    2) Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+To get started running the project locally, please follow the steps below.
 
-## Customize configuration
+First, clone the repository.
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
-pnpm install
+```bash
+git clone https://github.com/kalwabed/ykka-chat.git
 ```
 
-### Compile and Hot-Reload for Development
+Then, install dependencies and fetch data to your local machine. **Note that we use [Bun](https://bun.sh/docs/installation).**
 
-```sh
-pnpm dev
+```bash
+cd ykka-chat
+bun install
 ```
 
-### Type-Check, Compile and Minify for Production
+Then, copy and set your Firebase credentials to the `.env.local` file.
 
-```sh
-pnpm build
+```bash
+cp .env.local.example .env.local
 ```
 
-### Run Unit Tests with [Vitest](https://vitest.dev/)
+> Please note that we use **Firebase Realtime Database** and **Firebase Firestore**. Therefore, please ensure that you have set up your own Firebase instance.
 
-```sh
-pnpm test:unit
+Finally, run the development server.
+
+```bash
+bun dev
 ```
 
-### Run End-to-End Tests with [Playwright](https://playwright.dev)
+Open [localhost:5173](http://localhost:5173) with your browser to see the result.
 
-```sh
-# Install browsers for the first run
-npx playwright install
+## Screenshots
 
-# When testing on CI, must build the project first
-pnpm build
+![Login page screenshot](/public/ss-login.png)
+![Chat page screenshot](/public/ss-chat.png)
 
-# Runs the end-to-end tests
-pnpm test:e2e
-# Runs the tests only on Chromium
-pnpm test:e2e --project=chromium
-# Runs the tests of a specific file
-pnpm test:e2e tests/example.spec.ts
-# Runs the tests in debug mode
-pnpm test:e2e --debug
-```
+## Authors
 
-### Lint with [ESLint](https://eslint.org/)
+[@kalwabed](https://www.github.com/kalwabed)
 
-```sh
-pnpm lint
-```
+## License
+
+[MIT](https://choosealicense.com/licenses/mit/)
